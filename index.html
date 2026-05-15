@@ -16,6 +16,7 @@
   }
   h1 { font-size: 28px; margin-bottom: 8px; }
   h2 { font-size: 20px; margin-top: 32px; color: #2c3e50; }
+  h3 { font-size: 16px; margin-top: 20px; color: #34495e; }
   .meta { color: #666; font-size: 14px; margin-bottom: 24px; }
   a { color: #0066cc; }
   .highlight {
@@ -25,6 +26,14 @@
     margin: 16px 0;
     border-radius: 4px;
   }
+  .permission {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 6px;
+  }
+  .permission strong { color: #0066cc; }
   footer {
     margin-top: 48px;
     padding-top: 24px;
@@ -45,9 +54,10 @@
 </p>
 
 <div class="highlight">
-  <strong>Özet:</strong> DocFlow şu anda kullanıcılarından herhangi bir kişisel veri
-  toplamamaktadır. Uygulama tamamen çevrimdışı çalışmakta olup verileriniz yalnızca
-  kendi cihazınızda saklanır.
+  <strong>Özet:</strong> DocFlow, belgelerinizi taramak ve PDF oluşturmak için
+  kullandığınız bir uygulamadır. Tüm belge işleme (tarama, OCR, PDF oluşturma)
+  <strong>cihazınızda yerel olarak</strong> gerçekleşir. Belgeleriniz, fotoğraflarınız
+  ve OCR ile çıkarılan metinler sunucularımıza veya üçüncü taraflara gönderilmez.
 </div>
 
 <h2>1. Veri Sorumlusu</h2>
@@ -60,66 +70,162 @@
 
 <h2>2. Topladığımız Bilgiler</h2>
 <p>
-  <strong>Şu anki sürümde hiçbir kişisel veri toplamıyoruz.</strong> Uygulama:
+  <strong>Kişisel veri toplamıyor, sunucularımıza herhangi bir veri göndermiyoruz.</strong>
+  DocFlow:
 </p>
 <ul>
   <li>Hesap oluşturma veya giriş yapma gerektirmez,</li>
-  <li>İnternet üzerinden sunucularımıza veri göndermez,</li>
-  <li>Konum, kamera, mikrofon, rehber gibi hassas izinler talep etmez,</li>
-  <li>Reklam veya analitik takip kodu içermez.</li>
+  <li>Taranan belgelerinizi, fotoğraflarınızı veya OCR metinlerini sunucularımıza
+  yüklemez,</li>
+  <li>Reklam veya kullanıcı davranışı takip kodu içermez,</li>
+  <li>Konum, mikrofon, rehber, telefon durumu gibi izinler talep etmez.</li>
 </ul>
 <p>
-  Uygulama içinde oluşturduğunuz tüm veriler yalnızca cihazınızda saklanır ve
-  cihazınızdan çıkmaz.
+  Uygulama içinde oluşturduğunuz tüm belgeler, PDF'ler ve aranabilir metin indeksi
+  yalnızca cihazınızın yerel depolamasında saklanır.
 </p>
 
-<h2>3. Cihazınızda Saklanan Veriler</h2>
+<h2>3. Uygulama İzinleri</h2>
 <p>
-  DocFlow, işlevselliğini sağlamak için bazı verileri yalnızca cihazınızın yerel
-  depolama alanında tutabilir (örneğin ayarlarınız, oluşturduğunuz dokümanlar).
-  Bu veriler bize iletilmez ve uygulamayı kaldırdığınızda cihazınızdan silinir.
+  DocFlow'un düzgün çalışabilmesi için aşağıdaki izinleri talep ediyoruz. Her izin
+  yalnızca belirtilen amaç için kullanılır:
 </p>
 
-<h2>4. Üçüncü Taraf Servisler</h2>
+<div class="permission">
+  <strong>📷 Kamera (CAMERA)</strong><br>
+  Belge taramak için kullanılır. Çekilen görüntüler yalnızca uygulamanın yerel
+  depolama alanına kaydedilir; sunucularımıza veya üçüncü taraflara
+  <strong>gönderilmez</strong>.
+</div>
+
+<div class="permission">
+  <strong>🖼️ Galeri / Fotoğraf Erişimi (READ_MEDIA_IMAGES)</strong><br>
+  Mevcut fotoğraflarınızdan belge oluşturmak isterseniz, seçtiğiniz görselleri
+  okumak için kullanılır. Yalnızca sizin seçtiğiniz görseller işlenir.
+</div>
+
+<div class="permission">
+  <strong>💾 Depolama / Dosya Erişimi</strong><br>
+  Oluşturduğunuz PDF'leri ve taranan belgeleri cihazınıza kaydetmek, daha önce
+  kaydettiğiniz dosyaları açmak ve paylaşmak için kullanılır.
+</div>
+
+<div class="permission">
+  <strong>🌐 İnternet (INTERNET)</strong><br>
+  Uygulama yalnızca <strong>iki amaç</strong> için internete bağlanır:
+  <ol>
+    <li>İlk açılışta Google Fonts CDN üzerinden tipografi fontlarını indirmek
+    (bkz. Bölüm 5),</li>
+    <li>Gelecek sürümlerde eklenecek hesap ve abonelik özellikleri için
+    (bkz. Bölüm 7).</li>
+  </ol>
+  Belgeleriniz, fotoğraflarınız veya OCR metinleriniz internet üzerinden
+  <strong>asla gönderilmez</strong>.
+</div>
+
+<h2>4. Optik Karakter Tanıma (OCR) — Google ML Kit</h2>
 <p>
-  Uygulama, Google Play Store üzerinden dağıtılmaktadır. Google'ın kendi
-  veri toplama uygulamaları için
+  DocFlow, taradığınız belgelerdeki metni tanımak ve aranabilir hale getirmek için
+  <strong>Google ML Kit Text Recognition</strong> kütüphanesini kullanır. Bu özellik
+  hakkında bilmeniz gerekenler:
+</p>
+<ul>
+  <li><strong>Tamamen cihaz üzerinde çalışır (on-device):</strong> Görselleriniz ve
+  çıkarılan metinler Google'a veya başka bir sunucuya <strong>gönderilmez</strong>.
+  Tanıma modeli uygulamayla birlikte cihazınıza yüklenmiştir (Firebase ML Vision
+  bulut servisi değil, bundled on-device model).</li>
+  <li><strong>Desteklenen alfabeler:</strong> PDF oluşturma sırasında Latin,
+  Devanagari, Çince, Japonca ve Korece alfabeleri arasında seçim yapabilirsiniz.</li>
+  <li><strong>Sonuç:</strong> OCR ile çıkarılan metin, uygulama içi arama yapabilmeniz
+  için cihazınızdaki yerel bir veritabanına yazılır ve cihazdan çıkmaz.</li>
+</ul>
+<p>
+  Daha fazla bilgi için
+  <a href="https://developers.google.com/ml-kit/vision/text-recognition" target="_blank" rel="noopener">
+  Google ML Kit Text Recognition</a> dokümantasyonuna bakabilirsiniz.
+</p>
+
+<h2>5. Üçüncü Taraf Servisler</h2>
+
+<h3>5.1 Google Fonts CDN</h3>
+<p>
+  DocFlow, kullanıcı arayüzü tipografisi (Bricolage Grotesque, Bebas Neue) ve
+  imza/el yazısı ekranındaki dekoratif fontlar (Dancing Script, Pacifico, Satisfy)
+  için <strong>Google Fonts CDN</strong>'i kullanır. Bu fontlar uygulamanın ilk
+  açılışında bir kez indirilir ve cihazınızda önbelleğe alınır.
+</p>
+<p>
+  Bu süreçte teknik olarak şunlar gerçekleşir:
+</p>
+<ul>
+  <li>Font dosyalarını sunmak için Google'ın sunucularına bir HTTP isteği yapılır,</li>
+  <li>Bu istek sırasında Google, standart bir web isteğinde olduğu gibi
+  <strong>IP adresinizi ve cihaz/tarayıcı bilgilerinizi</strong> görebilir,</li>
+  <li>Google, Fonts hizmeti için kişisel veri saklamadığını beyan eder; ancak
+  detaylar için
+  <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener">
+  Google Fonts Gizlilik FAQ</a> ve
+  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+  Google Gizlilik Politikası</a> geçerlidir.</li>
+</ul>
+
+<h3>5.2 Google Play Hizmetleri</h3>
+<p>
+  Uygulama Google Play Store üzerinden dağıtılmaktadır. Google'ın kendi veri
+  toplama uygulamaları için
   <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
   Google Gizlilik Politikası</a>'na bakabilirsiniz.
 </p>
 
-<h2>5. Çocukların Gizliliği</h2>
+<h2>6. Cihazınızda Saklanan Veriler</h2>
+<p>
+  DocFlow aşağıdaki verileri yalnızca cihazınızın yerel depolama alanında tutar:
+</p>
+<ul>
+  <li>Taradığınız belgeler ve oluşturduğunuz PDF dosyaları,</li>
+  <li>OCR ile çıkarılan metin indeksi (uygulama içi arama için),</li>
+  <li>Uygulama tercihleriniz (tema, dil, varsayılan OCR alfabesi vb.),</li>
+  <li>Önbelleğe alınmış font dosyaları.</li>
+</ul>
+<p>
+  Bu veriler bize iletilmez. Uygulamayı kaldırdığınızda bu veriler cihazınızdan
+  silinir (önbellek ve depolama temizliği ayarlarınıza bağlı olarak).
+</p>
+
+<h2>7. Gelecek Özellikler ve Politika Güncellemeleri</h2>
+<p>
+  İlerleyen sürümlerde aşağıdaki özellikleri eklemeyi planlıyoruz:
+</p>
+<ul>
+  <li><strong>Hesap sistemi:</strong> E-posta ile kayıt/giriş, isteğe bağlı bulut
+  yedekleme,</li>
+  <li><strong>Ücretli abonelik (Premium):</strong> Google Play Billing veya benzeri
+  ödeme altyapısı üzerinden premium özellikler.</li>
+</ul>
+<p>
+  Bu özellikler eklendiğinde bu Gizlilik Politikası güncellenecek; e-posta
+  adresinizin nasıl işleneceği, abonelik bilgilerinin nasıl yönetileceği, ödeme
+  verilerinin nerede saklanacağı (Google Play / Stripe gibi sağlayıcılarda) ve
+  iptal/iade haklarınız açıkça belirtilecektir. Önemli değişikliklerde uygulama
+  içinde veya bu sayfada bildirim yapılacaktır.
+</p>
+
+<h2>8. Çocukların Gizliliği</h2>
 <p>
   Uygulamamız 13 yaş altı çocuklara yönelik değildir ve bilerek 13 yaş altı
   kullanıcılardan kişisel bilgi toplamayız. Çocuğunuzun bize bilgi sağladığını
   düşünüyorsanız, lütfen bizimle iletişime geçin.
 </p>
 
-<h2>6. Gelecek Özellikler ve Politika Güncellemeleri</h2>
+<h2>9. Veri Güvenliği</h2>
 <p>
-  İlerleyen sürümlerde aşağıdaki özellikleri eklemeyi planlıyoruz:
-</p>
-<ul>
-  <li><strong>Hesap sistemi:</strong> E-posta ile kayıt/giriş özelliği,</li>
-  <li><strong>Ücretli abonelik:</strong> Google Play Billing veya benzeri ödeme
-  altyapısı üzerinden premium özellikler.</li>
-</ul>
-<p>
-  Bu özellikler eklendiğinde bu Gizlilik Politikası güncellenecek; e-posta
-  adresinizin nasıl işleneceği, abonelik bilgilerinin nasıl yönetileceği,
-  ödeme verilerinin nerede saklanacağı (Google Play / Stripe gibi sağlayıcılarda)
-  ve iptal/iade haklarınız açıkça belirtilecektir. Önemli değişikliklerde
-  uygulama içinde veya bu sayfada bildirim yapılacaktır.
+  Uzaktaki sunucularımıza veri göndermediğimiz için, cihazınızdaki verilerin
+  güvenliği cihazınızın kendi güvenlik önlemlerine (ekran kilidi, cihaz şifrelemesi
+  vb.) bağlıdır. Hassas belgeler işliyorsanız cihazınızı koruma altında tutmanızı
+  öneririz.
 </p>
 
-<h2>7. Veri Güvenliği</h2>
-<p>
-  Şu an uzaktaki sunucularımıza veri göndermediğimiz için, cihazınızdaki verilerin
-  güvenliği cihazınızın kendi güvenlik önlemlerine (ekran kilidi, şifreleme vb.)
-  bağlıdır. Cihazınızı koruma altında tutmanızı öneririz.
-</p>
-
-<h2>8. Haklarınız (KVKK & GDPR)</h2>
+<h2>10. Haklarınız (KVKK & GDPR)</h2>
 <p>
   6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve Avrupa Birliği Genel
   Veri Koruma Tüzüğü (GDPR) kapsamında aşağıdaki haklara sahipsiniz:
@@ -133,18 +239,19 @@
 </ul>
 <p>
   Şu anda kişisel veri toplamadığımız için bu haklar fiilen geçerli olmayabilir;
-  ancak gelecekte hesap özelliği eklendiğinde tüm bu haklarınızı yukarıdaki
-  e-posta adresi üzerinden kullanabilirsiniz.
+  ancak gelecekte hesap özelliği eklendiğinde tüm bu haklarınızı yukarıdaki e-posta
+  adresi üzerinden kullanabilirsiniz. Tüm yerel belgeleriniz üzerinde tam kontrol
+  her zaman sizdedir — uygulama içinden silebilir veya uygulamayı kaldırabilirsiniz.
 </p>
 
-<h2>9. Politika Değişiklikleri</h2>
+<h2>11. Politika Değişiklikleri</h2>
 <p>
   Bu Gizlilik Politikası zaman zaman güncellenebilir. Güncellemeler bu sayfada
   yayınlandığı tarih itibarıyla yürürlüğe girer. "Son Güncelleme" tarihini
   kontrol ederek değişiklikleri takip edebilirsiniz.
 </p>
 
-<h2>10. İletişim</h2>
+<h2>12. İletişim</h2>
 <p>
   Gizlilik politikamız veya uygulamamız hakkında herhangi bir sorunuz, talebiniz
   veya şikayetiniz varsa, lütfen aşağıdaki adres üzerinden bizimle iletişime geçin:
