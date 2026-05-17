@@ -49,15 +49,17 @@
 <p class="meta">
   <strong>Uygulama:</strong> DocFlow<br>
   <strong>Geliştirici:</strong> Velune<br>
-  <strong>Yürürlük Tarihi:</strong> 15 Mayıs 2026<br>
-  <strong>Son Güncelleme:</strong> 15 Mayıs 2026
+  <strong>Yürürlük Tarihi:</strong> 17 Mayıs 2026<br>
+  <strong>Son Güncelleme:</strong> 17 Mayıs 2026
 </p>
 
 <div class="highlight">
   <strong>Özet:</strong> DocFlow, belgelerinizi taramak ve PDF oluşturmak için
   kullandığınız bir uygulamadır. Tüm belge işleme (tarama, OCR, PDF oluşturma)
   <strong>cihazınızda yerel olarak</strong> gerçekleşir. Belgeleriniz, fotoğraflarınız
-  ve OCR ile çıkarılan metinler sunucularımıza veya üçüncü taraflara gönderilmez.
+  ve OCR ile çıkarılan metinler sunucularımıza gönderilmez. Uygulama, geliştirmeyi
+  sürdürebilmek için <strong>Google AdMob</strong> aracılığıyla sınırlı sayıda reklam
+  gösterir (bkz. Bölüm 5).
 </div>
 
 <h2>1. Veri Sorumlusu</h2>
@@ -70,19 +72,23 @@
 
 <h2>2. Topladığımız Bilgiler</h2>
 <p>
-  <strong>Kişisel veri toplamıyor, sunucularımıza herhangi bir veri göndermiyoruz.</strong>
-  DocFlow:
+  <strong>Biz (Velune) doğrudan kişisel veri toplamıyor, belgelerinizi sunucularımıza
+  göndermiyoruz.</strong> DocFlow:
 </p>
 <ul>
   <li>Hesap oluşturma veya giriş yapma gerektirmez,</li>
   <li>Taranan belgelerinizi, fotoğraflarınızı veya OCR metinlerini sunucularımıza
   yüklemez,</li>
-  <li>Reklam veya kullanıcı davranışı takip kodu içermez,</li>
   <li>Konum, mikrofon, rehber, telefon durumu gibi izinler talep etmez.</li>
 </ul>
 <p>
   Uygulama içinde oluşturduğunuz tüm belgeler, PDF'ler ve aranabilir metin indeksi
   yalnızca cihazınızın yerel depolamasında saklanır.
+</p>
+<p>
+  Bununla birlikte uygulama, reklam gösterimi için <strong>Google AdMob</strong>
+  SDK'sını kullanır. AdMob'un kendi veri toplama uygulamaları için lütfen Bölüm 5.2'yi
+  inceleyin.
 </p>
 
 <h2>3. Uygulama İzinleri</h2>
@@ -111,16 +117,25 @@
 </div>
 
 <div class="permission">
-  <strong>🌐 İnternet (INTERNET)</strong><br>
-  Uygulama yalnızca <strong>iki amaç</strong> için internete bağlanır:
+  <strong>🌐 İnternet (INTERNET) ve Ağ Durumu (ACCESS_NETWORK_STATE)</strong><br>
+  Uygulama yalnızca aşağıdaki amaçlar için internete bağlanır:
   <ol>
     <li>İlk açılışta Google Fonts CDN üzerinden tipografi fontlarını indirmek
-    (bkz. Bölüm 5),</li>
+    (bkz. Bölüm 5.1),</li>
+    <li>Google AdMob aracılığıyla reklam gösterimi (bkz. Bölüm 5.2),</li>
     <li>Gelecek sürümlerde eklenecek hesap ve abonelik özellikleri için
-    (bkz. Bölüm 7).</li>
+    (bkz. Bölüm 8).</li>
   </ol>
   Belgeleriniz, fotoğraflarınız veya OCR metinleriniz internet üzerinden
   <strong>asla gönderilmez</strong>.
+</div>
+
+<div class="permission">
+  <strong>🆔 Reklam Kimliği (com.google.android.gms.permission.AD_ID)</strong><br>
+  Google AdMob'un reklam gösterimi ve sınırlandırılması (frequency capping,
+  kişiselleştirme tercihiniz vb.) için cihazınızın reklam kimliğine (Advertising ID)
+  erişmesi gerekir. Bu kimliği istediğiniz zaman Android ayarlarından
+  sıfırlayabilir veya kişiselleştirilmiş reklamları kapatabilirsiniz.
 </div>
 
 <h2>4. Optik Karakter Tanıma (OCR) — Google ML Kit</h2>
@@ -169,7 +184,48 @@
   Google Gizlilik Politikası</a> geçerlidir.</li>
 </ul>
 
-<h3>5.2 Google Play Hizmetleri</h3>
+<h3>5.2 Google AdMob (Reklamlar)</h3>
+<p>
+  DocFlow, uygulamanın geliştirilmesini sürdürebilmek için <strong>Google AdMob</strong>
+  aracılığıyla sınırlı sayıda reklam gösterir. Reklam altyapısı tamamen Google
+  tarafından sağlanır; reklamları biz seçmiyor veya sunmuyoruz.
+</p>
+<p>
+  AdMob, reklam gösterimi ve ölçümü için aşağıdaki bilgileri otomatik olarak
+  toplayabilir:
+</p>
+<ul>
+  <li>Cihaz Reklam Kimliği (Android Advertising ID),</li>
+  <li>IP adresi, yaklaşık konum (IP'den türetilen),</li>
+  <li>Cihaz modeli, işletim sistemi sürümü, dil ve saat dilimi,</li>
+  <li>Uygulamayla ilgili genel olay verileri (reklam gösterimi, tıklama vb.),</li>
+  <li>Kişiselleştirilmiş reklamlara onay verdiyseniz, ilgi alanı sinyalleri.</li>
+</ul>
+<p>
+  AdMob, bu verileri reklam gösterimi, reklam dolandırıcılığını önleme, ölçüm ve
+  (izniniz varsa) kişiselleştirme amacıyla işler. Avrupa Ekonomik Alanı (AEA),
+  Birleşik Krallık ve İsviçre kullanıcıları için Google'ın <strong>User Messaging
+  Platform (UMP)</strong> aracılığıyla bir onay (consent) ekranı gösterilir; burada
+  kişiselleştirilmiş reklamları kabul edebilir veya reddedebilirsiniz. Onayınızı
+  daha sonra uygulama ayarlarından değiştirebilirsiniz.
+</p>
+<p>
+  Android ayarlarınızdan da "Reklam Kimliğini Sıfırla" veya "Kişiselleştirilmiş
+  Reklamları Sil" seçeneklerini kullanabilirsiniz.
+</p>
+<p>
+  AdMob'un veri işleme uygulamaları hakkında daha fazla bilgi için:
+</p>
+<ul>
+  <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">
+  AdMob ve gizlilik (Google Destek)</a></li>
+  <li><a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">
+  Google reklam teknolojileri</a></li>
+  <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+  Google Gizlilik Politikası</a></li>
+</ul>
+
+<h3>5.3 Google Play Hizmetleri</h3>
 <p>
   Uygulama Google Play Store üzerinden dağıtılmaktadır. Google'ın kendi veri
   toplama uygulamaları için
@@ -185,14 +241,23 @@
   <li>Taradığınız belgeler ve oluşturduğunuz PDF dosyaları,</li>
   <li>OCR ile çıkarılan metin indeksi (uygulama içi arama için),</li>
   <li>Uygulama tercihleriniz (tema, dil, varsayılan OCR alfabesi vb.),</li>
-  <li>Önbelleğe alınmış font dosyaları.</li>
+  <li>Önbelleğe alınmış font dosyaları,</li>
+  <li>AdMob reklam onay tercihiniz (UMP).</li>
 </ul>
 <p>
   Bu veriler bize iletilmez. Uygulamayı kaldırdığınızda bu veriler cihazınızdan
   silinir (önbellek ve depolama temizliği ayarlarınıza bağlı olarak).
 </p>
 
-<h2>7. Gelecek Özellikler ve Politika Güncellemeleri</h2>
+<h2>7. Veri Güvenliği</h2>
+<p>
+  Uzaktaki sunucularımıza belge veya kişisel veri göndermediğimiz için, cihazınızdaki
+  verilerin güvenliği cihazınızın kendi güvenlik önlemlerine (ekran kilidi, cihaz
+  şifrelemesi vb.) bağlıdır. Hassas belgeler işliyorsanız cihazınızı koruma altında
+  tutmanızı öneririz. AdMob ile iletişim HTTPS üzerinden şifreli olarak gerçekleşir.
+</p>
+
+<h2>8. Gelecek Özellikler ve Politika Güncellemeleri</h2>
 <p>
   İlerleyen sürümlerde aşağıdaki özellikleri eklemeyi planlıyoruz:
 </p>
@@ -200,7 +265,7 @@
   <li><strong>Hesap sistemi:</strong> E-posta ile kayıt/giriş, isteğe bağlı bulut
   yedekleme,</li>
   <li><strong>Ücretli abonelik (Premium):</strong> Google Play Billing veya benzeri
-  ödeme altyapısı üzerinden premium özellikler.</li>
+  ödeme altyapısı üzerinden premium özellikler (reklamsız kullanım dahil olabilir).</li>
 </ul>
 <p>
   Bu özellikler eklendiğinde bu Gizlilik Politikası güncellenecek; e-posta
@@ -210,19 +275,13 @@
   içinde veya bu sayfada bildirim yapılacaktır.
 </p>
 
-<h2>8. Çocukların Gizliliği</h2>
+<h2>9. Çocukların Gizliliği</h2>
 <p>
   Uygulamamız 13 yaş altı çocuklara yönelik değildir ve bilerek 13 yaş altı
-  kullanıcılardan kişisel bilgi toplamayız. Çocuğunuzun bize bilgi sağladığını
+  kullanıcılardan kişisel bilgi toplamayız. AdMob reklamları da Google Play'in
+  "Aileler" politikasına uygun olarak yapılandırılmamıştır; bu nedenle uygulama
+  yetişkin kullanıcılara yöneliktir. Çocuğunuzun uygulamayı kullandığını
   düşünüyorsanız, lütfen bizimle iletişime geçin.
-</p>
-
-<h2>9. Veri Güvenliği</h2>
-<p>
-  Uzaktaki sunucularımıza veri göndermediğimiz için, cihazınızdaki verilerin
-  güvenliği cihazınızın kendi güvenlik önlemlerine (ekran kilidi, cihaz şifrelemesi
-  vb.) bağlıdır. Hassas belgeler işliyorsanız cihazınızı koruma altında tutmanızı
-  öneririz.
 </p>
 
 <h2>10. Haklarınız (KVKK & GDPR)</h2>
@@ -238,10 +297,13 @@
   <li>Verilerinizin başka bir hizmete taşınmasını talep etme.</li>
 </ul>
 <p>
-  Şu anda kişisel veri toplamadığımız için bu haklar fiilen geçerli olmayabilir;
-  ancak gelecekte hesap özelliği eklendiğinde tüm bu haklarınızı yukarıdaki e-posta
-  adresi üzerinden kullanabilirsiniz. Tüm yerel belgeleriniz üzerinde tam kontrol
-  her zaman sizdedir — uygulama içinden silebilir veya uygulamayı kaldırabilirsiniz.
+  Biz (Velune) doğrudan kişisel veri toplamadığımız için bu haklar bizim
+  tarafımızda fiilen sınırlı olabilir. AdMob aracılığıyla işlenen veriler için
+  bu haklarınızı Google'a doğrudan
+  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+  Google Gizlilik Politikası</a> üzerinden kullanabilirsiniz. Tüm yerel belgeleriniz
+  üzerinde tam kontrol her zaman sizdedir — uygulama içinden silebilir veya
+  uygulamayı kaldırabilirsiniz.
 </p>
 
 <h2>11. Politika Değişiklikleri</h2>
